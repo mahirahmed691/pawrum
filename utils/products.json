@@ -1,0 +1,42 @@
+[
+    {
+        "title": "Pizzles",
+        "image": "../assets/dog.jpg",
+        "category": "Treat",
+        "price": "9.99"
+    },
+    {
+        "title": "Jerky",
+        "image": "../assets/dog.jpg",
+        "category": "Treat",
+        "price": "9.99"
+    },
+    {
+        "title": "Animal Ears",
+        "image": "../assets/dog.jpg",
+        "category": "Treat",
+        "price": "9.99"
+    },
+    {
+        "title": "Bones",
+        "image": "../assets/dog.jpg",
+        "category": "Treat",
+        "price": "9.99"
+
+    },
+    {
+        "title": "Hooves",
+        "image": "../assets/dog.jpg",
+        "category": "Treat",
+        "price": "9.99"
+
+    },
+    {
+        "title": "Cookies",
+        "image": "../assets/dog.jpg",
+        "category": "Treat",
+        "price": "9.99"
+
+    }
+]
+
