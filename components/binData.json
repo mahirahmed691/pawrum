@@ -1,4 +1,4 @@
-[    // Dog Cafe
+[    // Dog Cafe Manchester
 
     { "type": "Cafe", "properties": { "OBJECTID": 1, "Street": "The Wharf",  "Location": "Manchester" }, "geometry": { "type": "Point", "latitude": -2.25682, "longtitude": 53.473716} }, 
     { "type": "Cafe", "properties": { "OBJECTID": 2, "Street": "Dog Bowl",  "Location": "Manchester" }, "geometry": { "type": "Point", "latitude": -2.24283, "longtitude": 53.4741264 }}, 
