@@ -10,18 +10,15 @@ import {
   Alert
 } from 'react-native';
 import ImagesList from '../components/ImageList';
-import { Title } from 'react-native-paper';
+import { IconButton, Title } from 'react-native-paper';
 import { Card, Icon } from 'react-native-elements';
 
-const wait = (timeout) => {
-  return new Promise(resolve => setTimeout(resolve, timeout));
-}
 
 export default function HomeScreen(props) {
 
   const [locationServiceEnabled, setLocationServiceEnabled] = useState(false);
   const [displayCurrentAddress, setDisplayCurrentAddress] = useState(
-    'Wait, we are fetching you location...'
+    'One moment, fetching your location...'
   );
   
 
@@ -31,7 +28,7 @@ export default function HomeScreen(props) {
   }, []);
 
   const GetCurrentLocation = async () => {
-    let { status } = await Location.requestBackgroundPermissionsAsync();
+    let { status } = await Location.requestForegroundPermissionsAsync();
   
     if (status !== 'granted') {
       Alert.alert(
@@ -42,7 +39,7 @@ export default function HomeScreen(props) {
       );
     }
   
-    let { coords } = await Location.getCurrentPositionAsync();
+    let { coords } = await (await Location.getCurrentPositionAsync());
   
     if (coords) {
       const { latitude, longitude } = coords;
@@ -52,7 +49,7 @@ export default function HomeScreen(props) {
       });
   
       for (let item of response) {
-        let address = `${item.name}, ${item.street}, ${item.postalCode}, ${item.city}`;
+        let address = `${item.city}`;
   
         setDisplayCurrentAddress(address);
       }
@@ -73,14 +70,15 @@ export default function HomeScreen(props) {
       setLocationServiceEnabled(enabled);
     }
   };
-
   return (
+    
     <SafeAreaView style={styles.container}>
       <View style={{flexDirection:'row',justifyContent:'space-between', alignItems:'center'}}>
-        <Title style={{marginTop:120, padding:10, fontFamily:'Avenir-Book', fontWeight:'bold'}}>Home</Title>
-        <Text style={{color:"black"}}>{displayCurrentAddress}</Text>
-        <Icon style={{marginTop:120, padding:10,}} name="direction" type="entypo" />
-        
+        <Title style={{marginTop:120, padding:10, fontFamily:'Avenir-Book', fontWeight:'bold'}}>Home</Title>     
+        <View style={{flexDirection:'row', alignItems:'center'}}>
+          <Text style={{color:"#dbb2cf", marginTop:120, fontWeight:'bold'}}>{displayCurrentAddress}</Text>
+          <Icon style={{marginTop:120, padding:10,}} name="direction" type="entypo" />
+        </View> 
      </View> 
       <ImagesList />
       {navBar(props)}

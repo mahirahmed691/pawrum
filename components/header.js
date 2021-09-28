@@ -3,12 +3,12 @@ import { styles } from "../css/styles.js";
 import { IconButton, Provider as PaperProvider } from "react-native-paper";
 import { View, SafeAreaView, Text, Button } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
+import { Tooltip} from 'react-native-elements';
 
 
 export default function header(props) {
-  let stockColor = "black";
+  let stockColor = "#222";
 
-  const [image, setImage] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -20,22 +20,6 @@ export default function header(props) {
       }
     })();
   }, []);
-
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    console.log(result);
-
-    if (!result.cancelled) {
-      setImage(result.uri);
-      
-    }
-  };
 
   return (
     <SafeAreaView  style={styles.header}>
@@ -49,18 +33,43 @@ export default function header(props) {
           }
         ></IconButton>
       </View>
-      <View style={{marginTop:40, flexDirection:'row', alignItems:'center'}}>
-        <Text style={{fontFamily:'BradleyHandITCTT-Bold', fontSize:30,color:"black"}}>Pawrum</Text>
+      <View style={{marginTop:40, flexDirection:'row'}}>
+        <Text style={{fontFamily:'BradleyHandITCTT-Bold', fontSize:30,color:stockColor}}>Pawrum</Text>
       </View>
-      <View style={{marginTop:40, flexDirection:"row"}}>
-      <IconButton
-          icon={"plus"}
-          color={stockColor}
-          size={22}
-          onPress={() =>
-            props.navigation.navigate("ImageUpload")
+      <View style={{marginTop:40, flexDirection:"row",}}>
+          <Tooltip backgroundColor="whitesmoke"
+              containerStyle={{height:100}}
+              popover={
+                <View style={{flexDirection:'', padding:100}}>
+                    <IconButton
+                    rippleColor="white"
+                    animated={true}
+                    icon={"camera"}
+                    color={stockColor}
+                    size={22}
+                    onPress={() =>
+                      props.navigation.navigate("ImageUpload")
+                    }
+                  ></IconButton>
+                  <IconButton
+                  rippleColor="white"
+                  icon={"timer"}
+                  color={stockColor}
+                  size={22}
+                  onPress={() =>
+                    props.navigation.navigate("DogWalk")
+                  }
+                  >Dog Walk</IconButton>
+              </View>
           }
-        ></IconButton>
+            >
+            <IconButton
+              icon={"plus"}
+              color={stockColor}
+              size={22}
+            ></IconButton>
+          </Tooltip>
+      
       <IconButton
           icon={"heart"}
           color={stockColor}

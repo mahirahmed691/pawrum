@@ -5,6 +5,8 @@ import StoreScreen from "../components/Store";
 import ProfileScreen from "../components/ProfileScreen";
 import EditProfileScreen from "../components/EditProfileScreen";
 import ImageUploaderScreen from "../components/ImageUploader";
+import DogWalkScreen from "../components/DogWalkScreen";
+
 
 const Stack = createStackNavigator();
 
@@ -20,6 +22,7 @@ export default function AppStack() {
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="EditProfile" component={EditProfileScreen} />
       <Stack.Screen name="ImageUpload" component={ImageUploaderScreen} />
+      <Stack.Screen name="DogWalk" component={DogWalkScreen} />
     </Stack.Navigator>
   );
 }

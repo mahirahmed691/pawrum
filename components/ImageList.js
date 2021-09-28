@@ -21,7 +21,7 @@ const ImagesList = () => {
   };
 
   return (
-    <View style={{marginBottom:80}}>
+    <View style={{marginBottom:100}}>
       <FlatList
       style={{marginTop:0, marginBottom:40}}
         data={urlsUploadedImages}

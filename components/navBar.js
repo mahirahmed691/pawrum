@@ -4,10 +4,7 @@ import { IconButton, Provider as PaperProvider } from "react-native-paper";
 import { View, Button } from "react-native";
 
 export default function navBar(props) {
-  let stockColor = "black";
-  let newsColor = "black";
-  let searchColor = "black";
-  let menuColor = "black";
+  const navColor = "#a9a9a8";
 
   return (
     <View style={styles.navBar}>
@@ -16,7 +13,7 @@ export default function navBar(props) {
           icon={"home"}
           style={styles.navButton}
           size={22}
-          color={newsColor}
+          color={navColor}
           onPress={() =>
             props.navigation.navigate("Home")
           }
@@ -27,7 +24,7 @@ export default function navBar(props) {
       <View>
         <IconButton
           icon={"shopping"}
-          color={stockColor}
+          color={navColor}
           size={22}
           style={styles.navButton}
           onPress={() =>
@@ -37,21 +34,10 @@ export default function navBar(props) {
       </View>
       <View>
         <IconButton
-          icon={"magnify"}
-          style={styles.navButton}
-          size={22}
-          color={searchColor}
-          onPress={() =>
-            props.navigation.navigate("Search")
-          }
-        ></IconButton>
-      </View>
-      <View>
-        <IconButton
           icon={"menu"}
           style={styles.navButton}
           size={22}
-          color={menuColor}
+          color={navColor}
           onPress={() =>
             props.navigation.navigate("Home")
           }

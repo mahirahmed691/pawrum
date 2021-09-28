@@ -2,7 +2,7 @@ import { StyleSheet, Dimensions } from "react-native";
 
 import { ScreenWidth } from 'react-native-elements/dist/helpers';
 
-const primaryColor = "whitesmoke" 
+const primaryColor = "white" 
 const secondaryColor = "white" 
 
 const windowWidth = Dimensions.get('window').width;
@@ -12,7 +12,9 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       justifyContent:'center',
-      backgroundColor:primaryColor
+      backgroundColor:'transparent',
+      padding:0,
+      marginBottom:0,
     },
     container1: {
       flex: 1
@@ -76,13 +78,16 @@ const styles = StyleSheet.create({
       },
       navBar: {
         position:'absolute',
+        backgroundColor:'#111',
         bottom:0,
-        padding:10,
-        backgroundColor:secondaryColor,
-        width: windowWidth,
+        padding:5,
+        margin:20,
+        borderRadius:30,
+        width: windowWidth * 0.9,
         justifyContent: "space-evenly",
         flexDirection: "row",
         elevation: 10,
+        
  
       },
       header:{
