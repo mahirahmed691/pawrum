@@ -11,6 +11,7 @@
     { "type": "Cafe", "properties": { "OBJECTID": 10, "Street": "Crazy Pedros",  "Location": "Manchester" }, "geometry": { "type": "Point", "latitude":   -2.23646 , "longtitude": 53.482570667785815 }},  
     { "type": "Cafe", "properties": { "OBJECTID": 11, "Street": "The Ostrich",  "Location": "Manchester" }, "geometry": { "type": "Point", "latitude":   -2.266384 , "longtitude": 53.52833675249852 }},  
     { "type": "Cafe", "properties": { "OBJECTID": 12, "Street": "The Counter House",  "Location": "Manchester" }, "geometry": { "type": "Point", "latitude": -2.229171 , "longtitude": 53.48472531352815,}},  
+    { "type": "Cafe", "properties": { "OBJECTID": 12, "Street": "The Counter House",  "Location": "Manchester" }, "geometry": { "type": "Point", "latitude": -2.229171 , "longtitude": 53.48472531352815,}},  
     
     //Dog Bins - York
 
