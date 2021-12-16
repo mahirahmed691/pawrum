@@ -1,88 +1,80 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { styles } from "../css/styles.js";
-import { IconButton, Provider as PaperProvider } from "react-native-paper";
-import { View, SafeAreaView, Text, Button } from "react-native";
-import * as ImagePicker from 'expo-image-picker';
-import { Tooltip} from 'react-native-elements';
-
+import {
+  IconButton,
+  Badge,
+  Provider as PaperProvider,
+} from "react-native-paper";
+import {
+  View,
+  SafeAreaView,
+  Text,
+  Button,
+  Appearance,
+  useColorScheme,
+} from "react-native";
+import * as ImagePicker from "expo-image-picker";
+import { Tooltip } from "react-native-elements";
 
 export default function header(props) {
   let stockColor = "#222";
 
+  const colorScheme = useColorScheme();
+
+  const themeTextStyle =
+    colorScheme === "light" ? (stockColor = "black") : (stockColor = "white");
+  const themeContainerStyle =
+    colorScheme === "light" ? styles.header : styles.headerDark;
 
   useEffect(() => {
     (async () => {
-      if (Platform.OS !== 'web') {
-        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== 'granted') {
-          alert('Sorry, we need camera roll permissions to make this work!');
+      if (Platform.OS !== "web") {
+        const { status } =
+          await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== "granted") {
+          alert("Sorry, we need camera roll permissions to make this work!");
         }
       }
     })();
   }, []);
 
   return (
-    <SafeAreaView  style={styles.header}>
-      <View style={{marginTop:40, flexDirection:'row', alignItems:'center'}}>
-      <IconButton
+    <SafeAreaView style={[styles.header, themeContainerStyle]}>
+      <View
+        style={{ marginTop: 40, flexDirection: "row", alignItems: "center" }}
+      >
+        <IconButton
           icon={"account-outline"}
           color={stockColor}
           size={22}
-          onPress={() =>
-            props.navigation.navigate("Profile")
-          }
+          onPress={() => props.navigation.navigate("Profile")}
         ></IconButton>
       </View>
-      <View style={{marginTop:40, flexDirection:'row'}}>
-        <Text style={{fontFamily:'BradleyHandITCTT-Bold', fontSize:30,color:stockColor}}>Pawrum</Text>
+      <View style={{ marginTop: 40, flexDirection: "row" }}>
+        <Text
+          style={{
+            fontFamily: "BradleyHandITCTT-Bold",
+            fontSize: 30,
+            color: stockColor,
+          }}
+        >
+          Pawrum
+        </Text>
       </View>
-      <View style={{marginTop:40, flexDirection:"row",}}>
-          <Tooltip backgroundColor="whitesmoke"
-              containerStyle={{height:100}}
-              popover={
-                <View style={{flexDirection:'', padding:100}}>
-                    <IconButton
-                    rippleColor="white"
-                    animated={true}
-                    icon={"camera"}
-                    color={stockColor}
-                    size={22}
-                    onPress={() =>
-                      props.navigation.navigate("ImageUpload")
-                    }
-                  ></IconButton>
-                  <IconButton
-                  rippleColor="white"
-                  icon={"timer"}
-                  color={stockColor}
-                  size={22}
-                  onPress={() =>
-                    props.navigation.navigate("DogWalk")
-                  }
-                  >Dog Walk</IconButton>
-              </View>
-          }
-            >
-            <IconButton
-              icon={"plus"}
-              color={stockColor}
-              size={22}
-            ></IconButton>
-          </Tooltip>
-      
-      <IconButton
+      <View style={{ marginTop: 40, flexDirection: "row" }}>
+        <IconButton
+          icon={"plus-box-outline"}
+          color={stockColor}
+          size={22}
+          onPress={() => props.navigation.navigate("ImageUpload")}
+        ></IconButton>
+        <IconButton
           icon={"heart"}
           color={stockColor}
           size={22}
-          onPress={() =>
-            props.navigation.navigate("Store")
-          }
+          onPress={() => props.navigation.navigate("Store")}
         ></IconButton>
-        <IconButton
-          icon={"bell"}
-          color={stockColor}
-          size={22}
-        ></IconButton>
+        <IconButton icon={"bell"} color={stockColor} size={22}></IconButton>
       </View>
     </SafeAreaView>
   );

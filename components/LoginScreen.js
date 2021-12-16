@@ -11,7 +11,7 @@ import "firebase/database";
 const db = firebase.firestore();
 
 export default function WelcomeScreen({ navigation }) {
-  const [errorStyle, setErrorStyle] = useState(styles.noWarning);
+  const [errorStyle, setErrorStyle] = useState(styles.warning);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(

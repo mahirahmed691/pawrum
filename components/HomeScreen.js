@@ -1,26 +1,33 @@
-import React, { useEffect, useState} from 'react';
-import * as Location from 'expo-location';
+import React, { useEffect, useState } from "react";
+import * as Location from "expo-location";
 import { styles } from "../css/styles.js";
 import header from "./header.js";
 import navBar from "./navBar.js";
+import Stories from "./Stories.js";
 import {
   SafeAreaView,
   View,
-  Text, 
-  Alert
-} from 'react-native';
-import ImagesList from '../components/ImageList';
-import { IconButton, Title } from 'react-native-paper';
-import { Card, Icon } from 'react-native-elements';
-
+  Text,
+  Alert,
+  Appearance,
+  useColorScheme,
+} from "react-native";
+import ImagesList from "../components/ImageList";
+import { ScrollView } from "react-native-gesture-handler";
+import { StatusBar } from "expo-status-bar";
 
 export default function HomeScreen(props) {
-
   const [locationServiceEnabled, setLocationServiceEnabled] = useState(false);
   const [displayCurrentAddress, setDisplayCurrentAddress] = useState(
-    'One moment, fetching your location...'
+    "One moment, fetching your location..."
   );
-  
+
+  const colorScheme = useColorScheme();
+
+  const themeTextStyle =
+    colorScheme === "light" ? styles.lightThemeText : styles.darkThemeText;
+  const themeContainerStyle =
+    colorScheme === "light" ? styles.container : styles.containerDark;
 
   useEffect(() => {
     CheckIfLocationEnabled();
@@ -29,28 +36,28 @@ export default function HomeScreen(props) {
 
   const GetCurrentLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
-  
-    if (status !== 'granted') {
+
+    if (status !== "granted") {
       Alert.alert(
-        'Permission not granted',
-        'Allow the app to use location service.',
-        [{ text: 'OK' }],
+        "Permission not granted",
+        "Allow the app to use location service.",
+        [{ text: "OK" }],
         { cancelable: false }
       );
     }
-  
-    let { coords } = await (await Location.getCurrentPositionAsync());
-  
+
+    let { coords } = await await Location.getCurrentPositionAsync();
+
     if (coords) {
       const { latitude, longitude } = coords;
       let response = await Location.reverseGeocodeAsync({
         latitude,
-        longitude
+        longitude,
       });
-  
+
       for (let item of response) {
         let address = `${item.city}`;
-  
+
         setDisplayCurrentAddress(address);
       }
     }
@@ -61,9 +68,9 @@ export default function HomeScreen(props) {
 
     if (!enabled) {
       Alert.alert(
-        'Location Service not enabled',
-        'Please enable your location services to continue',
-        [{ text: 'OK' }],
+        "Location Service not enabled",
+        "Please enable your location services to continue",
+        [{ text: "OK" }],
         { cancelable: false }
       );
     } else {
@@ -71,15 +78,27 @@ export default function HomeScreen(props) {
     }
   };
   return (
-    
-    <SafeAreaView style={styles.container}>
-      <View style={{flexDirection:'row',justifyContent:'space-between', alignItems:'center'}}>
-        <Title style={{marginTop:120, padding:10, fontFamily:'Avenir-Book', fontWeight:'bold'}}>Home</Title>     
-        <View style={{flexDirection:'row', alignItems:'center'}}>
-          <Text style={{color:"#dbb2cf", marginTop:120, fontWeight:'bold'}}>{displayCurrentAddress}</Text>
-          <Icon style={{marginTop:120, padding:10,}} name="direction" type="entypo" />
-        </View> 
-     </View> 
+    <SafeAreaView style={[styles.container, themeContainerStyle]}>
+      <StatusBar />
+      <Text
+        style={{
+          position: "absolute",
+          top: 80,
+          left: 0,
+          right: 0,
+          zIndex: 2,
+          color: "#2CCC9D",
+          backgroundColor: "black",
+          fontSize: 12,
+          fontFamily: "Dosis_800ExtraBold",
+          textAlign: "right",
+          paddingRight: 5,
+          fontWeight: "bold",
+        }}
+      >
+        {displayCurrentAddress}
+      </Text>
+
       <ImagesList />
       {navBar(props)}
       {header(props)}

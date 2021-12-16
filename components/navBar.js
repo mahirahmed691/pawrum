@@ -14,12 +14,9 @@ export default function navBar(props) {
           style={styles.navButton}
           size={22}
           color={navColor}
-          onPress={() =>
-            props.navigation.navigate("Home")
-          }
+          onPress={() => props.navigation.navigate("Home")}
         ></IconButton>
       </View>
-      
 
       <View>
         <IconButton
@@ -27,9 +24,16 @@ export default function navBar(props) {
           color={navColor}
           size={22}
           style={styles.navButton}
-          onPress={() =>
-            props.navigation.navigate("Store")
-          }
+          onPress={() => props.navigation.navigate("Store")}
+        ></IconButton>
+      </View>
+      <View>
+        <IconButton
+          icon={"dog-service"}
+          color={navColor}
+          size={22}
+          style={styles.navButton}
+          onPress={() => props.navigation.navigate("DogWalk")}
         ></IconButton>
       </View>
       <View>
@@ -38,9 +42,7 @@ export default function navBar(props) {
           style={styles.navButton}
           size={22}
           color={navColor}
-          onPress={() =>
-            props.navigation.navigate("Home")
-          }
+          onPress={() => props.navigation.navigate("Menu")}
         ></IconButton>
       </View>
     </View>

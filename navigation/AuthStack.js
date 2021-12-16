@@ -16,7 +16,6 @@ export default function AuthStack() {
       headerShown: false
     }}
     initialRouteName="Welcome" >
-      <Stack.Screen name="Welcome" component={WelcomeScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="ResetPassword" component={ForgotPasswordScreen} />

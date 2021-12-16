@@ -1,17 +1,30 @@
-
-import * as ImagePicker from 'expo-image-picker';
-import React, { useEffect, useState } from 'react';
-import {IconButton} from 'react-native-paper';
-import { styles } from "../css/styles.js";
-import * as firebase from '../components/Firebase/firebase'
+import * as ImagePicker from "expo-image-picker";
+import React, { useEffect, useState } from "react";
 import {
-  ActivityIndicator,
-  Image,
-  SafeAreaView,
-  View
-} from 'react-native';
-import uuid from 'uuid';
-import { storage } from './Firebase/firebase';
+  IconButton,
+  TextInput,
+  TextInputMask,
+  List,
+  Button,
+  Text,
+} from "react-native-paper";
+import { styles } from "../css/styles.js";
+import * as firebase from "../components/Firebase/firebase";
+import { ActivityIndicator, Image, SafeAreaView, View } from "react-native";
+import { storage } from "./Firebase/firebase";
+import { ScrollView } from "react-native-gesture-handler";
+// import { LarkCompat } from "react-native-image-filter-kit";
+
+import uuid from "uuid";
+
+const arrayOfObjects = [
+  { mode: "Normal" },
+  { mode: "Clarendon" },
+  { mode: "Gingham" },
+  { mode: "Moon" },
+  { mode: "Lark" },
+  { mode: "Reyes" },
+];
 
 export default function ImageUploader(props) {
   const [imageUri, setImageUri] = useState(null);
@@ -19,16 +32,35 @@ export default function ImageUploader(props) {
 
   useEffect(() => {
     getPermission();
-    pickImage();
     getUserData();
   }, []);
 
+  const openCamera = async () => {
+    // Ask the user for the permission to access the camera
+    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("You've refused to allow this appp to access your camera!");
+      return;
+    }
+
+    const result = await ImagePicker.launchCameraAsync();
+
+    // Explore the result
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImageUri(result.uri);
+      console.log(result.uri);
+    }
+  };
+
   const getPermission = async () => {
-    if (Platform.OS !== 'web') {
+    if (Platform.OS !== "web") {
       const { status } =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (status !== 'granted') {
-        alert('Sorry, we need camera roll permissions to make this work!');
+      if (status !== "granted") {
+        alert("Sorry, we need camera roll permissions to make this work!");
       }
     }
   };
@@ -61,7 +93,6 @@ export default function ImageUploader(props) {
     }
 
     if (result.cancelled) {
-      props.navigation.goBack()
     }
   };
 
@@ -74,10 +105,10 @@ export default function ImageUploader(props) {
       };
       xhr.onerror = function (e) {
         console.log(e);
-        reject(new TypeError('Network request failed'));
+        reject(new TypeError("Network request failed"));
       };
-      xhr.responseType = 'blob';
-      xhr.open('GET', imageUri, true);
+      xhr.responseType = "blob";
+      xhr.open("GET", imageUri, true);
       xhr.send(null);
     });
   };
@@ -97,21 +128,109 @@ export default function ImageUploader(props) {
     } finally {
       blob.close();
       setUploading(false);
+      props.navigation.goBack();
     }
   };
 
+  function showImageFilters() {
+    if (imageUri) {
+      return arrayOfObjects.map(({ mode }) => (
+        <View>
+          <Text
+            style={{ marginBottom: 0, marginTop: 10, marginLeft: 10 }}
+            key={mode}
+          >
+            {mode}
+          </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Image
+              source={{ uri: imageUri }}
+              style={{
+                height: 100,
+                width: 100,
+                margin: 5,
+                resizeMode: "fit",
+                border: "solid",
+                borderWidth: 0.5,
+                borderColor: "#9F87D3",
+              }}
+            />
+          </View>
+        </View>
+      ));
+    }
+  }
+
   return (
     <SafeAreaView style={styles.container1}>
+      <View
+        style={{
+          flexDirection: "row",
+          alignSelf: "flex-end",
+        }}
+      >
+        <IconButton icon="camera" color="black" onPress={openCamera} />
+        <IconButton icon="image" color="black" onPress={pickImage} />
+      </View>
+
+      {!imageUri ? (
+        <Image
+          source={{
+            uri: "https://media.istockphoto.com/vectors/camera-photo-upload-icon-on-isolated-white-background-eps-10-vector-vector-id1248723171?k=20&m=1248723171&s=612x612&w=0&h=K3Cv1zo_db-6LAqCJYCMiiPJdOEgjY89bnrxmV7fPDY=",
+          }}
+          style={{ width: "100%", height: 400, marginTop: 40 }}
+        />
+      ) : (
+        <Image
+          source={{ uri: imageUri }}
+          style={{ width: "100%", height: 400, marginTop: 40 }}
+        />
+      )}
+
+      {!imageUri ? (
+        <></>
+      ) : (
+        <ScrollView horizontal>{showImageFilters()}</ScrollView>
+      )}
+      <TextInput
+        multiline
+        placeholder="Write a caption"
+        left={<TextInput.Icon name="pencil" />}
+      />
+
       {uploading ? (
-        <View style={{position:"absolute", top:"50%"}}>
+        <View>
           <ActivityIndicator color="red" />
         </View>
       ) : (
-        <IconButton  style={{position:'absolute', top:50, right:20}} icon='upload' color='white' onPress={uploadImageToBucket} />
+        <Button
+          style={{ width: "60%", alignSelf: "center", marginTop: 20 }}
+          disabled={!imageUri}
+          mode="contained"
+          color="black"
+          onPress={uploadImageToBucket}
+        >
+          Upload
+        </Button>
       )}
-      <Image source={{ uri: imageUri }} style={{ width: "100%", height: 400, marginTop:60, }} />
-      <IconButton style={{position:'absolute', top:50, right:60}} icon="camera" color='white' onPress={pickImage} />
-
+      <Button
+        style={{ width: "60%", alignSelf: "center", marginTop: 20 }}
+        mode="contained"
+        color="#2CCC9D"
+        labelStyle={{
+          color: "white",
+        }}
+        onPress={() => props.navigation.goBack()}
+      >
+        Cancel
+      </Button>
     </SafeAreaView>
   );
 }
