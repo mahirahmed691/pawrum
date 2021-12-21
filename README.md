@@ -13,3 +13,11 @@
 ```expo start --ios``` or ```expo start --android```
 
 
+## File structure
+
+```
+pawrum
+|
+|
+|
+```
