@@ -1,1 +1,5 @@
-# pawrum
+# Pawrum
+
+## Installation
+
+``git clone ``
