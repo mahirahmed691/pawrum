@@ -8,4 +8,8 @@
 </br>
 ```yarn or npm install```
 
+## Start 
+
+```expo start --ios`` or ``expo start --android``
+
 
