@@ -44,10 +44,10 @@ export default function ProfileScreent(props) {
     <View style={[styles.tabPageContainer, themeContainerStyle]}>
       <GridImageView
         data={[
-          "https://scontent-lhr8-1.xx.fbcdn.net/v/t39.30808-6/265523225_1295313694320980_9200439423975109236_n.jpg?_nc_cat=110&ccb=1-5&_nc_sid=825194&_nc_ohc=OzlWJ8qqj5oAX8I74cn&tn=i2yh3e133jVzKLpB&_nc_ht=scontent-lhr8-1.xx&oh=b117c186726be2d26c840e2529e47d06&oe=61BAB683",
-          "https://scontent-lhr8-1.xx.fbcdn.net/v/t39.30808-6/266705376_641944913657663_8763318956946393343_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=825194&_nc_ohc=O6RL3MUkDDcAX-9UyOu&_nc_ht=scontent-lhr8-1.xx&oh=00_AT_nmEk3uG4JzSMwQLgsrNX5AC3wNH94mzhn_83ioOwfxg&oe=61BC80ED",
-          "https://scontent-lhr8-2.xx.fbcdn.net/v/t39.30808-6/266186787_4616677371746020_995480370587329793_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=b9115d&_nc_ohc=VvRQvXWtBlUAX81Q7r8&_nc_ht=scontent-lhr8-2.xx&oh=89fddffbc672b168fcd45963b5642b5b&oe=61BB8078",
-          "https://scontent-lhr8-2.xx.fbcdn.net/v/t39.30808-6/264426467_2731761250462457_856292605954201534_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=b9115d&_nc_ohc=Vs-RocujBtEAX9PXIQL&_nc_ht=scontent-lhr8-2.xx&oh=1e4f22f9c4b0391e7bcf76c8477e03e1&oe=61BC0D00",
+          "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gettyimages-1041987488.jpg",
+          "https://i.redd.it/tthkpajhwyp61.jpg",
+          "https://i.redd.it/g01erl6il1h41.jpg",
+          "https://i.pinimg.com/originals/97/4a/1e/974a1e3d3ae653700401e4819df79715.jpg",
         ]}
       />
     </View>

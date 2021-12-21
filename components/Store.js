@@ -1,110 +1,216 @@
-import * as React from 'react';
-import { SafeAreaView, ScrollView, View, Image, Text} from 'react-native';
+import React, { useState } from "react";
+import {
+  SafeAreaView,
+  ScrollView,
+  View,
+  Image,
+  Text,
+  Dimensions,
+  FlatList,
+  useColorScheme,
+} from "react-native";
+import navBar from "./navBar.js";
 import { styles } from "../css/styles.js";
-import productJSON from '../utils/products'
-import { ApplePayButton, useApplePay } from '@stripe/stripe-react-native';
-import { Button, Title, IconButton, DataTable } from 'react-native-paper';
+import { Button, Title, IconButton, Badge } from "react-native-paper";
 
-import { Icon } from 'react-native-elements';
+const ITEM_WIDTH = Dimensions.get("window").width;
+const COLUMNS = 2;
 
-import { ScreenWidth } from 'react-native-elements/dist/helpers';
-const optionsPerPage = [2, 3, 4];
+let iconColor = "#222";
+let badgeColor = "#222";
 
+export default function Store(props) {
+  const colorScheme = useColorScheme();
+  const [count, setCount] = useState(0);
 
-export default function Store(props){
+  const themeTextStyle =
+    colorScheme === "light"
+      ? styles.lightShopThemeText
+      : styles.darkShopThemeText;
+  const themePriceStyle =
+    colorScheme === "light"
+      ? styles.lightShopPriceThemeText
+      : styles.darkShopPriceThemeText;
+  const themeHeaderTextStyle =
+    colorScheme === "light"
+      ? styles.lightHeaderThemeText
+      : styles.darkHeaderThemeText;
+  const themeContainerStyle =
+    colorScheme === "light" ? styles.container : styles.containerDark;
+  const iconColorTheme =
+    colorScheme === "light" ? (iconColor = "black") : (iconColor = "white");
+  const badgeColorTheme =
+    colorScheme === "light" ? (badgeColor = "red") : (badgeColor = "#9595ff");
 
+  return (
+    <SafeAreaView style={[styles.container, themeContainerStyle]}>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <IconButton
+          icon="chevron-left"
+          color={iconColor}
+          onPress={() => props.navigation.goBack()}
+        />
 
-    const [count, setCount] = React.useState(0);
-    const [page, setPage] = React.useState(0);
-    const [itemsPerPage, setItemsPerPage] = React.useState(optionsPerPage[0]);
+        <View>
+          <IconButton color={iconColor} icon="basket" type="feather" />
+          <Badge
+            size={15}
+            style={{
+              backgroundColor: badgeColor,
+              position: "absolute",
+              bottom: 20,
+              left: 25,
+            }}
+          >
+            {count}
+          </Badge>
+        </View>
+      </View>
 
+      <ScrollView margin={10} horizontal>
+        <Button
+          style={{
+            marginRight: 10,
+            marginBottom: 5,
+            height: 35,
+            borderRadius: 20,
+          }}
+          color={iconColor}
+          mode="contained"
+          icon="filter"
+        >
+          Sort by
+        </Button>
+        <Button
+          style={{
+            marginRight: 10,
+            marginBottom: 5,
+            height: 35,
+            borderRadius: 20,
+          }}
+          color={iconColor}
+          mode="contained"
+        >
+          Treats
+        </Button>
+      </ScrollView>
 
-    // Payment
-    const { presentApplePay, isApplePaySupported } = useApplePay();
-
-    React.useEffect(() => {
-        setPage(0);
-      }, [itemsPerPage]);
-
-    const pay = async () => {
-          if (!isApplePaySupported) return;
-          // ...
-          const { error } = await presentApplePay({
-            cartItems: [{ label: 'Example item name', amount: '14.00' }],
-            country: 'US',
-            currency: 'GBP',
-            shippingMethods: [
+      <ScrollView>
+        <View
+          style={{
+            height: "50%",
+            alignItems: "center",
+          }}
+        >
+          <FlatList
+            numColumns={2}
+            data={[
               {
-                amount: '20.00',
-                identifier: 'DPS',
-                label: 'Courier',
-                detail: 'Delivery',
-                type: 'final',
+                title: "Pizzles",
+                image: require("../assets/pizzles.jpeg"),
+                category: "Treat",
+                price: "7.99",
               },
-            ],
-            requiredShippingAddressFields: ['emailAddress', 'phoneNumber'],
-            requiredBillingContactFields: ['phoneNumber', 'name'],
-          });
-          if (error) {
-            // handle error
-          }
-    };
-       
-
-    
-    return(
-        <SafeAreaView>  
-            <View style={{flexDirection:'row', justifyContent:'space-between', alignItems:'center', margin:10}}>
-                <IconButton icon="chevron-left" onPress={() => props.navigation.goBack()}/>
-                <Icon color="black" name="more-horizontal" type='feather'/>
-            </View>
-            <Title style={{ paddingBottom:0, marginBottom:20, marginLeft:10, fontWeight:'bold', fontFamily:'Avenir'}}> <Icon name="store"/> Marketplace</Title>
-            <ScrollView horizontal backgroundColor="#dde2e3">
-                <IconButton icon="fire" color="orangered"/>
-                <IconButton icon="arrow-up"/>
-            </ScrollView>
-            <ScrollView style={{height:"70%"}}> 
-            
-             {    
-               Object.entries(productJSON).map(([key, value]) =>{
-                       return(     
-                            <View style={{margin:8, borderRadius:10, flexDirection:"row"}}  key={key}>
-                              <Image 
-                              style={{ resizeMode:"cover", width:"45%", height:120, borderTopLeftRadius:10, borderBottomLeftRadius:10, alignSelf:'flex-start', marginTop:0}} 
-                              source={require('../assets/food.jpeg')}/>
-                              <View style={{justifyContent:'space-around', alignSelf:'center'}}>
-                                    <Text style={{marginLeft:20, color:'#111', marginVertical:10, fontWeight:"bold", fontFamily:'Avenir'}}>{value.title}</Text>
-                                    <Text style={{marginLeft:20, color:'#999', marginVertical:5, fontWeight:"bold"}}>{value.category}</Text>
-                                <View style={{flexDirection:'row', alignSelf:'flex-start'}}>
-                                    <Text style={{color:"#9595ff", marginRight:30, marginLeft:20, fontWeight:"bold"}}>£{value.price}</Text>
-                                    <View style={{alignItems:'center', flexDirection:'row'}}>
-                                        <IconButton size={15} style={{backgroundColor:"black"}} color="white" onPress={() => setCount(count - 1)} icon="minus"/>
-                                            <Text style={{padding:3}}>{count}</Text>
-                                        <IconButton size={15} style={{backgroundColor:"black"}} color="white" onPress={() => setCount(count + 1)} icon="plus"/>
-                                    </View>
-                                   
-                                </View>
-
-                             </View>
-                             
-                            </View>                          
-                       )
-                   }) 
-              }
-            </ScrollView>
-            <DataTable label="Basket"  scrollEnabled={true} editable={false}>
-                <DataTable.Header>
-                    <DataTable.Title>Item</DataTable.Title>
-                    <DataTable.Title numeric>Quantity</DataTable.Title>
-                    <DataTable.Title numeric>Price</DataTable.Title>
-                </DataTable.Header>
-            </DataTable>
-            <IconButton 
-            style={{ position:'relative', bottom:0, left:ScreenWidth * 0.8, backgroundColor:'#111'}} color="white" size={25}
-            onPress={pay}
-            icon="basket"/>
-
-
-        </SafeAreaView>
-    );
+              {
+                title: "Jerky",
+                image: require("../assets/jerky.jpeg"),
+                category: "Treat",
+                price: "4.99",
+              },
+              {
+                title: "Animal Ears",
+                image: require("../assets/animal-ears.jpeg"),
+                category: "Treat",
+                price: "12.99",
+              },
+              {
+                title: "Bones",
+                image: require("../assets/bone.jpeg"),
+                category: "Treat",
+                price: "10.99",
+              },
+              {
+                title: "Hooves",
+                image: require("../assets/hooves.jpeg"),
+                category: "Treat",
+                price: "9.99",
+              },
+              {
+                title: "Cookies",
+                image: require("../assets/cookies.jpeg"),
+                category: "Treat",
+                price: "3.99",
+              },
+            ]}
+            renderItem={({ item }) => {
+              return (
+                <View style={{}}>
+                  <Image
+                    style={{
+                      resizeMode: "contain",
+                      width: ITEM_WIDTH / 2 - 20,
+                      height: 300,
+                      margin: 10,
+                      borderRadius: 30,
+                      backgroundColor: "white",
+                    }}
+                    source={item.image}
+                  />
+                  <IconButton
+                    icon="shopping"
+                    color="black"
+                    style={{
+                      backgroundColor: "white",
+                      position: "absolute",
+                      borderBottomWidth: 3,
+                      right: 0,
+                      bottom: 0,
+                      zIndex: 2,
+                    }}
+                    onPress={() => setCount(count + 1)}
+                    animated={true}
+                  />
+                  <IconButton
+                    icon="heart-outline"
+                    color="#9595ff"
+                    style={{
+                      position: "absolute",
+                      right: 10,
+                      top: 10,
+                      zIndex: 2,
+                    }}
+                    onPress={() => console.log(item.title)}
+                    animated={true}
+                  />
+                  <Title style={[styles.lightShopThemeText, themeTextStyle]}>
+                    {item.title}
+                  </Title>
+                  <Text
+                    style={[styles.lightShopPriceThemeText, themePriceStyle]}
+                  >
+                    £{item.price}
+                  </Text>
+                </View>
+              );
+            }}
+            keyExtractor={(index) => {
+              return index.title;
+            }}
+          />
+        </View>
+        <View style={{ marginTop: 20 }}>
+          <Title style={[styles.lightHeaderThemeText, themeHeaderTextStyle]}>
+            Top Sales
+          </Title>
+        </View>
+      </ScrollView>
+      {navBar(props)}
+    </SafeAreaView>
+  );
 }
