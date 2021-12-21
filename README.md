@@ -12,9 +12,11 @@
 
 ```expo start --ios``` or ```expo start --android```
 
+
 ## Example
 
-![](https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png =250x250)
+![](https://user-images.githubusercontent.com/19246093/146857959-97161253-a456-4a51-9491-24e5a2182244.png)
+
 
 ## File structure
 
