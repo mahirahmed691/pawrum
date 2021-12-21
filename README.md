@@ -6,7 +6,7 @@
 </br>
 ```cd pawrum```
 </br>
-```yarn or npm install```
+```yarn``` or ```npm install```
 
 ## Start 
 
