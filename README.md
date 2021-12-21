@@ -14,11 +14,7 @@
 
 ## Example
 
-
-
-
-
-![](https://user-images.githubusercontent.com/19246093/146857619-b2f77622-f6f9-4db0-9617-627e767d28c8.png =250x250)
+![](https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png =250x250)
 
 ## File structure
 
