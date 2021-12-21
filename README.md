@@ -10,6 +10,6 @@
 
 ## Start 
 
-```expo start --ios`` or ``expo start --android``
+```expo start --ios``` or ```expo start --android```
 
 
