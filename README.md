@@ -14,7 +14,7 @@
 
 ## Example
 
-[<img![Simulator Screen Shot - iPhone 13 Pro - 2021-12-21 at 01 48 19 width=200/>](https://user-images.githubusercontent.com/19246093/146857132-5e4001f0-967d-4447-ab17-7f0e9bb99307.png)
+<img![Simulator Screen Shot - iPhone 13 Pro - 2021-12-21 at 01 48 19 width=200/>](https://user-images.githubusercontent.com/19246093/146857132-5e4001f0-967d-4447-ab17-7f0e9bb99307.png)
 
 
 
