@@ -15,8 +15,9 @@
 
 ## Example
 
-![](https://user-images.githubusercontent.com/19246093/146857959-97161253-a456-4a51-9491-24e5a2182244.png?s=200)
 
+
+<img src="https://user-images.githubusercontent.com/19246093/146857959-97161253-a456-4a51-9491-24e5a2182244.png" width="100" height="100">
 
 ## File structure
 
