@@ -51,4 +51,24 @@
  ┣ 📜binData.json
  ┣ 📜header.js
  ┗ 📜navBar.js
+ 
+ 📦css
+ ┗ 📜styles.js
+ 
+ 📦hooks
+ ┗ 📜useStatusBar.js
+ 
+ 📦navigation
+ ┣ 📜AppStack.js
+ ┣ 📜AuthStack.js
+ ┣ 📜AuthUserProvider.js
+ ┣ 📜Routes.js
+ ┣ 📜index.js
+ ┗ 📜navigationTheme.js
+ 
+ 📦utils
+ ┣ 📜colors.js
+ ┗ 📜products.json
+ 
+ App.js
 ```
